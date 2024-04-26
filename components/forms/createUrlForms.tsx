@@ -24,49 +24,31 @@ import { FormLabel } from "../ui/form";
 import Visibility from "../common/Visible";
 
 const formSchema = z.object({
-  link: z.string().url({
+  url: z.string().url({
     message: "invalid url",
   }),
-  title: z
-    .string()
-    .min(2, "Title must be at least 2 characters long")
-    
+  title: z.string().min(2, "Title must be at least 2 characters long"),
 });
 
 const CreateUrlForm: React.FC = () => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      link: "",
+      url: "",
       title: "",
     },
   });
 
-  const register = async ({
-    link,
-    title,
-  }: {
-    email: string;
-    password: string;
-  }) => {
+  const createUrl = async ({url,title}:{url:string,title:string}) => {
     try {
-      const response = await axios.post<User>(
-        backendApiUrl + "/auth/register/user",
-        {
-          link,
-          title,
-        }
-      );
-
-      localStorage.setItem("auth-token", response.data.auth_token);
-      console.log(response.data);
-    } catch (error: any) {
-      toast.error(error.response.data.error as string);
+      await axios.post("");
+    } catch (error) {
+      toast.error("something went wrong");
     }
   };
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    await register(values);
+    await createUrl(values);
   }
 
   return (
@@ -77,7 +59,7 @@ const CreateUrlForm: React.FC = () => {
       >
         <FormField
           control={form.control}
-          name="link"
+          name="url"
           render={({ field }) => (
             <FormItem className="relative">
               <FormLabel />
