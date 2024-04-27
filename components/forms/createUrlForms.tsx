@@ -1,14 +1,16 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import axios from "axios";
 import { toast } from "react-toastify";
+import { mutate } from "swr";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { backendApiUrl } from "@/utils/constant";
-import { User } from "@/utils/shared/types";
+import instance from "@/utils/shared/Axios";
+import { Textarea } from "@/components/ui/textarea";
+import { Button } from "../common/Button";
+import { errorMessage } from "@/utils/shared/extractErrorMessageFromResponse";
 
 import {
   FormField,
@@ -19,31 +21,54 @@ import {
   FormMessage,
 } from "../ui/form";
 import { Input } from "../ui/input";
-import { Button } from "../ui/button";
 import { FormLabel } from "../ui/form";
-import Visibility from "../common/Visible";
 
 const formSchema = z.object({
   url: z.string().url({
     message: "invalid url",
   }),
   title: z.string().min(2, "Title must be at least 2 characters long"),
+  description: z.string().min(2, "Title must be at least 2 characters long"),
 });
 
-const CreateUrlForm: React.FC = () => {
+const CreateUrlForm: React.FC<{ completed: Function }> = ({ completed }) => {
+  const [loading, setLoading] = useState(false);
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       url: "",
       title: "",
+      description: "",
     },
   });
 
-  const createUrl = async ({url,title}:{url:string,title:string}) => {
+  const createUrl = async ({
+    url,
+    title,
+    description,
+  }: {
+    url: string;
+    title: string;
+    description: string;
+  }) => {
     try {
-      await axios.post("");
+      setLoading(true);
+      await instance.post("urls", {
+        url,
+        title,
+        description,
+      });
+
+
+      mutate('/urls/user/all');
+      setLoading(false);
+      toast.success("Url created 🤙🏽");
+
     } catch (error) {
+      setLoading(false);
       toast.error("something went wrong");
+      toast.error(errorMessage(error) || "something went wrong");
     }
   };
 
@@ -57,6 +82,25 @@ const CreateUrlForm: React.FC = () => {
         onSubmit={form.handleSubmit(onSubmit)}
         className="space-y-8  m-auto w-full"
       >
+        <FormField
+          control={form.control}
+          name="title"
+          render={({ field }) => (
+            <FormItem className="mt-4 relative">
+              <FormLabel />
+              <FormControl>
+                <Input
+                  className="bg-black h-14 text-white rounded-lg border-white/35"
+                  placeholder="example:my portfolio"
+                  {...field}
+                />
+              </FormControl>
+              <FormDescription />
+              <FormMessage className="absolute auth-error-message text-red-500" />
+            </FormItem>
+          )}
+        />
+
         <FormField
           control={form.control}
           name="url"
@@ -78,14 +122,14 @@ const CreateUrlForm: React.FC = () => {
 
         <FormField
           control={form.control}
-          name="title"
+          name="description"
           render={({ field }) => (
             <FormItem className="mt-4 relative">
               <FormLabel />
               <FormControl>
-                <Input
+                <Textarea
                   className="bg-black h-14 text-white rounded-lg border-white/35"
-                  placeholder="example:my portfolio"
+                  placeholder="description:short description of your url..."
                   {...field}
                 />
               </FormControl>
@@ -95,13 +139,14 @@ const CreateUrlForm: React.FC = () => {
           )}
         />
 
-        <Button
-          type="submit"
-          className="bg-white/90 text-lg w-full h-14 mt-5 rounded-lg active:bg-white/70"
-          variant={"secondary"}
-        >
-          create link
-        </Button>
+
+          <Button
+            loading={loading}
+            className="bg-white/90 text-lg w-full h-14 mt-5 rounded-lg active:bg-white/70"
+            variant="secondary"
+          >
+            create link
+          </Button>
       </form>
     </Form>
   );
