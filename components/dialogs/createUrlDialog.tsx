@@ -1,9 +1,10 @@
 import React, { useEffect, useRef, useState } from "react";
 import { IoCloseOutline } from "react-icons/io5";
-import CreateUrlForm from "../forms/createUrlForms";
+import CreateUrlForm from "../forms/CreateUrlForms";
 import instance from "@/utils/shared/Axios";
 import { Url } from "@/utils/shared/types";
-import useSWR,{mutate} from "swr";
+import { mutate } from "swr";
+import { backendApiUrl } from "@/utils/constant";
 
 async function fetchUrls(url: string) {
   const response = await instance<Url[]>(url);
@@ -46,11 +47,7 @@ const CreateUrlDialog: React.FC<Props> = ({ open, onClose }) => {
         </button>
         <div className="h-10"></div>
         <CreateUrlForm
-          completed={() => {
-            alert('hello')
-            mutate('/urls/user/all');
-            onClose();
-          }}
+          completed={onClose}
         />
       </div>
     </dialog>
