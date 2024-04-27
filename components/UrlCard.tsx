@@ -18,19 +18,19 @@ const UrlCard = ({ url }: { url: Url }) => {
       <div className="flex items-center w-full">
         <div className="w-full h-full">
           <p className="flex flex-col">
-            <Link href={url.shortUrl} className="text-[12px] text-blue-600">
+            <Link href={url.shortUrl} className="text-[12px] w-max text-blue-600">
               {url.shortUrl}
             </Link>
             <Link
               href={url.url}
-              className="text-[10px] relative bottom-1 text-white/50"
+              className="text-[10px] w-max relative bottom-1 text-white/50"
             >
               {url.url}
             </Link>
           </p>
 
           <div className="w-full h-[45%] bg-[#ffffff0a] p-3  rounded-lg">
-            <p className="line-clamp  text-sm text-white">{url.description}</p>
+            <p className="line-clamp  text-[12px] text-white">{url.description}</p>
           </div>
 
           <p className="bg-green-300 mt-2 w-max rounded-lg p-2 text-[12px] items-center gap-2 flex">

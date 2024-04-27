@@ -22,6 +22,7 @@ import {
 } from "../ui/form";
 import { Input } from "../ui/input";
 import { FormLabel } from "../ui/form";
+import { backendApiUrl } from "@/utils/constant";
 
 const formSchema = z.object({
   url: z.string().url({
@@ -60,15 +61,14 @@ const CreateUrlForm: React.FC<{ completed: Function }> = ({ completed }) => {
         description,
       });
 
-
-      mutate('/urls/user/all');
       setLoading(false);
       toast.success("Url created 🤙🏽");
+      await mutate("/urls/user/all");
+      completed();
 
     } catch (error) {
       setLoading(false);
       toast.error("something went wrong");
-      toast.error(errorMessage(error) || "something went wrong");
     }
   };
 
@@ -139,14 +139,13 @@ const CreateUrlForm: React.FC<{ completed: Function }> = ({ completed }) => {
           )}
         />
 
-
-          <Button
-            loading={loading}
-            className="bg-white/90 text-lg w-full h-14 mt-5 rounded-lg active:bg-white/70"
-            variant="secondary"
-          >
-            create link
-          </Button>
+        <Button
+          loading={loading}
+          className="bg-white/90 text-lg w-full h-14 mt-5 rounded-lg active:bg-white/70"
+          variant="secondary"
+        >
+          create link
+        </Button>
       </form>
     </Form>
   );
