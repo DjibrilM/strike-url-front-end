@@ -1,14 +1,18 @@
 import React from "react";
 import SideNav from "@/components/common/sideNav";
+import Authorization from "@/components/HOC/Auth";
+import { User } from "@/utils/shared/types";
 
-const layout = ({children}:{children:React.JSX.Element}) => {
+const layout = ({ children }: { children: React.JSX.Element }) => {
+  let userData: User | null = null;
+
   return (
-    <main className="flex">
-      <SideNav />
-      <div className="">
+    <Authorization user={userData}>
+      <main className="">
+        <SideNav />
         {children}
-      </div>
-    </main>
+      </main>
+    </Authorization>
   );
 };
 

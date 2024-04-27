@@ -2,14 +2,14 @@ import Image from "next/image";
 import { Seymour_One } from "next/font/google";
 import globe from "@/app/assets/vectors/globge.svg";
 import Link from "next/link";
-import Authorization from "@/components/HOC/Auth";
+import HomeAuthCheck from "@/components/HOC/HomeAuthCheck";
 
 //fonts
 const seymour_One = Seymour_One({ subsets: ["latin"], weight: ["400"] });
 
 export default function Home() {
   return (
-    <Authorization>
+    <HomeAuthCheck>
       <main className="h-full">
         <header className="mt-10 px-4 sm:px-10  text-white text-2xl sm:text-3xl flex justify-end font-bold">
           <Link
@@ -19,7 +19,7 @@ export default function Home() {
             S
           </Link>
         </header>
-
+        
         <section className="w-full p-4 h-full justify-center items-center flex relative flex-col">
           <Image
             src={globe}
@@ -60,6 +60,6 @@ export default function Home() {
           <p className="text-white text-white/50">&copy;Strike Urls</p>
         </footer>
       </main>
-    </Authorization>
+    </HomeAuthCheck>
   );
 }

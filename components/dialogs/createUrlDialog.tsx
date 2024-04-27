@@ -1,7 +1,14 @@
 import React, { useEffect, useRef, useState } from "react";
 import { IoCloseOutline } from "react-icons/io5";
-import Input from "postcss/lib/input";
 import CreateUrlForm from "../forms/createUrlForms";
+import instance from "@/utils/shared/Axios";
+import { Url } from "@/utils/shared/types";
+import useSWR,{mutate} from "swr";
+
+async function fetchUrls(url: string) {
+  const response = await instance<Url[]>(url);
+  return response.data;
+}
 
 interface Props {
   open: boolean;
@@ -28,7 +35,7 @@ const CreateUrlDialog: React.FC<Props> = ({ open, onClose }) => {
       onClose={onClose}
       ref={modalRef}
       open={false}
-      className="dialog bottom-[500px] min-w-[600px] rounded-lg p-4 border border-white/5 bg-[#09090b]  relative  backdrop:backdrop-animation duration-200"
+      className="dialog mx-auto bottom-[500px] max-w-[600px] w-full rounded-lg p-4 border border-white/5 bg-[#09090b]  relative  backdrop:backdrop-animation duration-200"
     >
       <div className="">
         <button
@@ -38,7 +45,13 @@ const CreateUrlDialog: React.FC<Props> = ({ open, onClose }) => {
           <IoCloseOutline />
         </button>
         <div className="h-10"></div>
-        <CreateUrlForm  />
+        <CreateUrlForm
+          completed={() => {
+            alert('hello')
+            mutate('/urls/user/all');
+            onClose();
+          }}
+        />
       </div>
     </dialog>
   );
