@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { IoCloseOutline } from "react-icons/io5";
-import CreateUrlForm from "../forms/CreateUrlForms";
+import CreateUrlForm from "../forms/createUrlForms";
 import instance from "@/utils/shared/Axios";
 import { Url } from "@/utils/shared/types";
 import { mutate } from "swr";
@@ -46,9 +46,7 @@ const CreateUrlDialog: React.FC<Props> = ({ open, onClose }) => {
           <IoCloseOutline />
         </button>
         <div className="h-10"></div>
-        <CreateUrlForm
-          completed={onClose}
-        />
+        <CreateUrlForm completed={onClose} />
       </div>
     </dialog>
   );

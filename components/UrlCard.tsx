@@ -7,7 +7,6 @@ import Link from "next/link";
 import { Url } from "@/utils/shared/types";
 import { FaRegTrashAlt } from "react-icons/fa";
 
-
 const UrlCard = ({ url }: { url: Url }) => {
   return (
     <li className="flex gap-4  h-[160px] bg-[#ffffff0a] border-r border-white/5 border rounded-lg p-2">
@@ -18,7 +17,10 @@ const UrlCard = ({ url }: { url: Url }) => {
       <div className="flex items-center w-full">
         <div className="w-full h-full">
           <p className="flex flex-col">
-            <Link href={url.shortUrl} className="text-[12px] w-max text-blue-600">
+            <Link
+              href={url.shortUrl}
+              className="text-[12px] w-max text-blue-600"
+            >
               {url.shortUrl}
             </Link>
             <Link
@@ -30,7 +32,9 @@ const UrlCard = ({ url }: { url: Url }) => {
           </p>
 
           <div className="w-full h-[45%] bg-[#ffffff0a] p-3  rounded-lg">
-            <p className="line-clamp  text-[12px] text-white">{url.description}</p>
+            <p className="line-clamp  text-[12px] text-white">
+              {url.description}
+            </p>
           </div>
 
           <p className="bg-green-300 mt-2 w-max rounded-lg p-2 text-[12px] items-center gap-2 flex">
@@ -42,13 +46,12 @@ const UrlCard = ({ url }: { url: Url }) => {
         <div className="">
           <Link
             className="h-10 mx-4 w-10 mr flex items-center justify-center rounded-lg text-black bg-white "
-            href={""}
+            href={"dashboard/" + url.id}
           >
             <IoIosExpand />
           </Link>
-          <button
-            className="h-10 mt-2 active:bg-red-400 mx-4 w-10 mr flex items-center justify-center rounded-lg text-black bg-red-500 "
-          >
+
+          <button className="h-10 mt-2 active:bg-red-400 mx-4 w-10 mr flex items-center justify-center rounded-lg text-black bg-red-500 ">
             <FaRegTrashAlt />
           </button>
         </div>

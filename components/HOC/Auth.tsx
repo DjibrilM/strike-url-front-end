@@ -34,7 +34,7 @@ const Authorization = ({
       });
       user = response.data;
     } catch (error) {
-      route.replace("/login");
+      route.replace("auth/login/?route=login");
     }
   };
 
@@ -43,7 +43,7 @@ const Authorization = ({
 
     const token = localStorage.getItem("auth-token") as string;
     if (!token) {
-      route.replace("login");
+      route.replace("auth/login/?route=login");
     } else {
       authorize(token);
     }
