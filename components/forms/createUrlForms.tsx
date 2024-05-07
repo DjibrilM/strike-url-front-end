@@ -65,7 +65,6 @@ const CreateUrlForm: React.FC<{ completed: Function }> = ({ completed }) => {
       toast.success("Url created 🤙🏽");
       await mutate("/urls/user/all");
       completed();
-
     } catch (error) {
       setLoading(false);
       toast.error("something went wrong");

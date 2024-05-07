@@ -20,9 +20,26 @@ export type Url = {
 
   urlIdentifier: string;
 
-  strikes: string[];
+  strikes: Strike[];
 
   strikesCount: number;
 
   title: string;
+};
+
+export type Strike = {
+  id: string;
+  status: string;
+  country: string;
+  countryCode: string;
+  region: string;
+  regionName: string;
+  city: string;
+  zip: string;
+  lat: number;
+  lon: number;
+  timezone: string;
+  url: Url;
+  created_at:Date;
+  updated_at: Date;
 };

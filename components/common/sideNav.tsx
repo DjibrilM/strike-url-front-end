@@ -17,7 +17,7 @@ const sideNav = () => {
   return (
     <aside className="h-screen fixed flex-col flex justify-between w-[100px] bg-[#ffffff0a] border-r border-white/5">
       <Link
-        href={"dashboard"}
+        href={"/dashboard"}
         className="w-[50px] mx-auto h-[50px] text-3xl flex items-center justify-center mt-10 bg-white text-black rounded-full"
       >
         <h1 className={seymour_One.className}>s</h1>

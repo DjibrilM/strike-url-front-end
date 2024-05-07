@@ -19,9 +19,11 @@ const page = () => {
     "/urls/user/all",
     fetchUrls
   );
+  
+
 
   return (
-    <main className=" ml-[100px] p-4">
+    <main className="ml-[100px] p-4">
       <Visibility visible={data ? true : false}>
         {data?.length! > 0 && (
           <h2 className="text-2xl text-white mb-2">Your links🔗</h2>

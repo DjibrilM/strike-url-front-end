@@ -64,6 +64,14 @@
     --input: 217.2 32.6% 17.5%;
     --ring: 212.7 26.8% 83.9%;
   }
+
+  .tab-element{
+    @apply bg-white/30 text-black space-x-10;
+  }
+
+  .url-tab-header .tab-element[data-state="active"] {
+    @apply bg-white text-black/90;
+  }
 }
 
 body {
@@ -83,8 +91,7 @@ body {
 dialog::backdrop {
   background-color: #2323231f;
   backdrop-filter: blur(5px);
-  animation: backdrop-blur-animation cubic-bezier(1,-0.67,0,1.67);
-
+  animation: backdrop-blur-animation cubic-bezier(1, -0.67, 0, 1.67);
 }
 
 @keyframes openModal {
@@ -122,10 +129,9 @@ dialog::backdrop {
 .line-clamp {
   display: -webkit-box;
   -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;  
+  -webkit-box-orient: vertical;
   overflow: hidden;
 }
-
 
 @-webkit-keyframes pulse {
   to {
@@ -146,4 +152,9 @@ dialog::backdrop {
   to {
     box-shadow: 0 0 0 45px rgba(255, 255, 255, 0);
   }
+}
+
+
+.strike-li {
+  @apply border-b border-white/25;
 }
